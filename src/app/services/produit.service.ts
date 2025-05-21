@@ -10,8 +10,8 @@ export class ProduitService {
   private BaseUrl = 'http://localhost:8080/api/produits';
 
   constructor(private http: HttpClient) { }
-  getAllProducts(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(`${this.BaseUrl}`);
+  getAllProducts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.BaseUrl}`);
   }
 
   getProductById(id: number): Observable<Produit> {

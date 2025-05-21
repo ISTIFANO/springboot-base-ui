@@ -3,7 +3,7 @@ import { Produit } from '../../models/produit';
 import { ProduitService } from '../../services/produit.service'; 
 import { RouterLink } from '@angular/router';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-produit',
   imports :[  RouterLink,NgFor,NgIf,CurrencyPipe],
@@ -14,11 +14,9 @@ import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
 export class ProduitComponent implements OnInit {
   produits: Produit[] = [];
 
-  constructor(private produitService: ProduitService) {}
+  constructor(private produitService: ProduitService,private router: Router) {}
 
-  ngOnInit(): void {
-    console.log("kd");
-    
+  ngOnInit(): void {    
     this.loadProduit();
   }
 
@@ -26,12 +24,22 @@ export class ProduitComponent implements OnInit {
 
     this.produitService.getAllProducts().subscribe(
       (products) => {
-        this.produits = products;
-        
+        this.produits = products;        
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+  supprimerProduit(id: number): void {
+    if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
+      this.produitService.deleteProduct(id).subscribe(() => {
+        this.produits = this.produits.filter(p => p.id !== id);
+        alert('Produit supprimé avec succès');
+      });
+    }
+  }
+  modifierProduit( id :number){
+    this.router.navigate(['/produits/update',id]);
   }
 }

@@ -36,5 +36,13 @@
                 </span>
             </div>
         </div>
+            <button *ngIf="produit.id != null" (click)="modifierProduit(produit.id)"
+                  class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+            Modifier
+          </button>
+        <button *ngIf="produit.id != null" (click)="supprimerProduit(produit.id)"
+                  class="bg-red-500 text-white bg-black px-3 py-1 rounded hover:bg-red-600">
+            Supprimer
+          </button>
     </div>
 </div>
